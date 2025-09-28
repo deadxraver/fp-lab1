@@ -15,7 +15,7 @@ jobs:
       - name: "Install dependencies"
         run: |
           apt update
-          apt install stack make hlint -y
+          apt install ghc make hlint -y
       - name: "Build"
         run: make build
       - name: "Test"
