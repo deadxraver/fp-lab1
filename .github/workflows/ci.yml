@@ -1,15 +1,11 @@
 name: "ci"
 run-name: "build & test"
 
-env:
-  GH_TOKEN: ${{github.token}}
-
 on: [push]
 
 jobs:
   build-test:
     runs-on: ubuntu-latest
-    container: ubuntu:24.04
     steps:
       - uses: actions/checkout@v4
       - uses: haskell/actions/setup@v2
@@ -18,8 +14,8 @@ jobs:
             cabal-version: '3.8'
       - name: "Install dependencies"
         run: |
-          apt update
-          apt install gcc make -y
+          sudo apt update
+          sudo apt install gcc make -y
           stack build --test --bench --no-run-tests --no-run-benchmarks
           stack build hlint
           stack build ormolu
