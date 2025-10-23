@@ -3,19 +3,24 @@ run-name: "build & test"
 
 on: [push]
 
-env:
-  GH_TOKEN: ${{github.token}}
-
 jobs:
   build-test:
     runs-on: ubuntu-latest
-    container: ubuntu:24.04
     steps:
       - uses: actions/checkout@v4
+      - uses: haskell/actions/setup@v2
+        with:
+            ghc-version: '9.4'
+            cabal-version: '3.8'
       - name: "Install dependencies"
         run: |
           apt update
-          apt install ghc gcc make hlint -y
+          apt install gcc make -y
+          stack build --test --bench --no-run-tests --no-run-benchmarks
+          stack build hlint
+          stack build ormolu
+      - name: "Lint"
+        run: make lint
       - name: "Build"
         run: make build
       - name: "Test"

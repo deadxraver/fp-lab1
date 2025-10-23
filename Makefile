@@ -1,19 +1,32 @@
-.PHONY: all clean
+.PHONY: all clean test test-c
+
+PROBLEM1=12
+PROBLEM2=18
 
 BUILD=build
 
 SRC=src
 
 CC=gcc
-CSRC1=$(SRC)/12/*.c
+CSRC1=$(SRC)/$(PROBLEM1)/*.c
 
-CEXEC1=c-12
+HSC=stack
+HSSRC1=$(SRC)/$(PROBLEM1)/*.hs
+
+CEXEC1=c-$(PROBLEM1)
+HSEXEC1=hs-$(PROBLEM1)
 
 all: build test
 	@echo 'build & test successfully finished'
 
-build: build-c
+lint: $(SRC)/
+	# TODO: linters
+
+build: build-c build-hs
 	@echo 'build finished, put binaries to $(BUILD)/'
+
+build-hs: $(HSSRC)/
+	# TODO: build haskell
 
 build-c: $(CSRC1)
 	-mkdir $(BUILD)
@@ -21,6 +34,9 @@ build-c: $(CSRC1)
 
 test: test-c
 	@echo 'Tests OK'
+
+test-hs:	build-hs
+	# TODO: haskell tests
 
 test-c:	build-c
 	@echo "Running c tests..."
