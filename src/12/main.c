@@ -1,6 +1,6 @@
 #include "main.h"
 
-static int parse_int(char s[]) {
+static int parse_int(char s[]) { // stoi простонародный
   int n = 0;
   int sign = s[0] == '-';
   for (size_t i = sign; s[i] != 0; ++i) {
