@@ -8,14 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: haskell/actions/setup@v2
-        with:
-          ghc-version: "9.4"
-          cabal-version: "3.8"
       - name: "Install dependencies"
         run: |
           sudo apt update
-          sudo apt install gcc hlint ormolu make -y
+          sudo apt install gcc hlint ormolu make ghc -y
       - name: "Format check"
         run: make format-check
       - name: "Lint"
