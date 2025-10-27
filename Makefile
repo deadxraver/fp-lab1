@@ -1,4 +1,4 @@
-.PHONY: all clean test test-c
+.PHONY: all clean test test-c test-hs format-check lint
 
 PROBLEM1=12
 PROBLEM2=18
@@ -23,8 +23,11 @@ HSEXEC2=hs-$(PROBLEM2)
 all: format-check lint build test
 	@echo 'build & test successfully finished'
 
+format: $(HSSRC1)
+	ormolu --mode inplace $(HSSRC1)
+
 format-check:
-	ormolu --mode check $$(find $(SRC) -name '*.hs')
+	ormolu --mode check $(HSSRC1)
 
 lint: $(SRC)/
 	hlint $(HSSRC1)
