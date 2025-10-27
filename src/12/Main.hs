@@ -8,10 +8,11 @@ triangleNumber :: (Integral a) => a -> a
 triangleNumber n = n * (n + 1) `div` 2
 
 -- map + inf list
+triangleNumbers :: Integral a => [a]
 triangleNumbers = map triangleNumber [0..]
 
 countDivs :: (Integral a) => a -> [a] -> a
--- tailrec
+-- rec
 countDivs n arr
               | null arr = 0
               | x * x > n = 0
@@ -20,8 +21,13 @@ countDivs n arr
               | otherwise = countDivs n xs
               where (x:xs) = arr
 
+-- filter + inf list again
+highlyDivisibleTriangleNumbers :: (Integral a) => a -> [a]
+highlyDivisibleTriangleNumbers divs =
+                    filter (\n -> countDivs n [1..] >= divs) triangleNumbers
+
 main :: IO ()
 -- test output
 main = do
       args <- getArgs
-      print (parseArgs args)
+      print (head (highlyDivisibleTriangleNumbers (parseArgs args)))
