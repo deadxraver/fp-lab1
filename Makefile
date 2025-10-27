@@ -20,8 +20,11 @@ CEXEC2=c-$(PROBLEM2)
 HSEXEC1=hs-$(PROBLEM1)
 HSEXEC2=hs-$(PROBLEM2)
 
-all: lint build test
+all: format-check lint build test
 	@echo 'build & test successfully finished'
+
+format-check:
+	ormolu --mode check $$(find $(SRC) -name '*.hs')
 
 lint: $(SRC)/
 	hlint $(HSSRC1)

@@ -15,10 +15,9 @@ jobs:
       - name: "Install dependencies"
         run: |
           sudo apt update
-          sudo apt install gcc hlint make -y
-          # stack build --test --bench --no-run-tests --no-run-benchmarks
-          # stack build hlint
-          # stack build ormolu
+          sudo apt install gcc hlint ormolu make -y
+      - name: "Format check"
+        run: make format-check
       - name: "Lint"
         run: make lint
       - name: "Build"
