@@ -10,7 +10,7 @@ SRC=src
 CC=gcc
 CSRC1=$(SRC)/$(PROBLEM1)/*.c
 
-HSC=stack
+HSC=ghc
 HSSRC1=$(SRC)/$(PROBLEM1)/*.hs
 
 CEXEC1=c-$(PROBLEM1)
@@ -26,17 +26,23 @@ build: build-c build-hs
 	@echo 'build finished, put binaries to $(BUILD)/'
 
 build-hs: $(HSSRC)/
-	# TODO: build haskell
+	$(HSC) $(HSSRC1) -o $(BUILD)/$(HSEXEC1)
 
 build-c: $(CSRC1)
 	-mkdir $(BUILD)
 	$(CC) -o $(BUILD)/$(CEXEC1) $^
 
-test: test-c
+test: test-c test-hs
 	@echo 'Tests OK'
 
 test-hs:	build-hs
-	# TODO: haskell tests
+	@echo "Running hs tests..."
+	[ $$($(BUILD)/$(HSEXEC1)) = 76576500 ];
+	@echo OK
+	[ $$($(BUILD)/$(HSEXEC1) 0) = 0 ];
+	@echo OK
+	[ $$($(BUILD)/$(HSEXEC1) 6) = 28 ];
+	@echo OK
 
 test-c:	build-c
 	@echo "Running c tests..."
