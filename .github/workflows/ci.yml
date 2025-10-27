@@ -15,7 +15,7 @@ jobs:
       - name: "Install dependencies"
         run: |
           sudo apt update
-          sudo apt install gcc make -y
+          sudo apt install gcc hlint make -y
           # stack build --test --bench --no-run-tests --no-run-benchmarks
           # stack build hlint
           # stack build ormolu

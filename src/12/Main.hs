@@ -2,7 +2,7 @@ import System.Environment (getArgs)
 
 defaultArg = 500
 parseArgs :: [String] -> Int
-parseArgs clArgs = if length clArgs > 0 then read (clArgs !! 0) :: Int else defaultArg
+parseArgs clArgs = if not (null clArgs) then read (head clArgs) :: Int else defaultArg
 
 triangleNumber :: (Integral a) => a -> a
 triangleNumber n = n * (n + 1) `div` 2
@@ -13,7 +13,7 @@ triangleNumbers = map triangleNumber [0..]
 countDivs :: (Integral a) => a -> [a] -> a
 -- tailrec
 countDivs n arr
-              | arr == [] = 0
+              | null arr = 0
               | x * x > n = 0
               | x * x == n = 1
               | n `mod` x == 0 = 2 + countDivs n xs

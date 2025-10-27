@@ -16,11 +16,11 @@ HSSRC1=$(SRC)/$(PROBLEM1)/*.hs
 CEXEC1=c-$(PROBLEM1)
 HSEXEC1=hs-$(PROBLEM1)
 
-all: build test
+all: lint build test
 	@echo 'build & test successfully finished'
 
 lint: $(SRC)/
-	# TODO: linters
+	hlint $(HSSRC1)
 
 build: build-c build-hs
 	@echo 'build finished, put binaries to $(BUILD)/'
