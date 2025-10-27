@@ -25,8 +25,8 @@ lint: $(SRC)/
 build: build-c build-hs
 	@echo 'build finished, put binaries to $(BUILD)/'
 
-build-hs: $(HSSRC)/
-	$(HSC) $(HSSRC1) -o $(BUILD)/$(HSEXEC1)
+build-hs: $(HSSRC1)
+	$(HSC) $^ -o $(BUILD)/$(HSEXEC1)
 
 build-c: $(CSRC1)
 	-mkdir $(BUILD)
