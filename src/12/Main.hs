@@ -3,7 +3,8 @@ import System.Environment (getArgs)
 defaultArg = 500
 
 parseArgs :: [String] -> Int
-parseArgs clArgs = if not (null clArgs) then read (head clArgs) :: Int else defaultArg
+parseArgs [] = defaultArg
+parseArgs clArgs = read (head clArgs) :: Int
 
 triangleNumber :: (Integral a) => a -> a
 triangleNumber n = n * (n + 1) `div` 2
