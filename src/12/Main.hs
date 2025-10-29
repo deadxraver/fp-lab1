@@ -33,4 +33,4 @@ main :: IO ()
 -- test output
 main = do
   args <- getArgs
-  print (head (highlyDivisibleTriangleNumbers (parseArgs args)))
+  print $ head $ highlyDivisibleTriangleNumbers $ parseArgs args
