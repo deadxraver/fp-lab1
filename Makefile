@@ -20,6 +20,8 @@ CEXEC2=c-$(PROBLEM2)
 HSEXEC1=hs-$(PROBLEM1)
 HSEXEC2=hs-$(PROBLEM2)
 
+CLINT_FLAGS=-Wall -Wextra -Wpedantic -Werror -fsanitize=address,undefined
+
 all: format-check lint build test
 	@echo 'build & test successfully finished'
 
@@ -31,7 +33,7 @@ format-check:
 
 lint: $(SRC)
 	hlint $(HSSRC1)
-	clang-tidy --warnings-as-errors=* $^/**/*.c $^/**/*.h
+	$(CC) -S $(CLINT_FLAGS) $^/**/*.c
 
 build: build-c build-hs
 	@echo 'build finished, put binaries to $(BUILD)/'
