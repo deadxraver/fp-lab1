@@ -42,7 +42,7 @@ void free_node(struct node* node) {
   if (node == NULL)
     return;
   struct node* next_node;
-  for (node; node; node = next_node) {
+  for (; node; node = next_node) {
     next_node = node->right;
     free_left_row(node);
   }
@@ -64,7 +64,7 @@ int max_path(struct node* node) {
   return max_path_rec(node);
 }
 
-int main(int argc, char* argv[]) {
+int main() {
   struct node* init_node = generate_default();
   printf("%d\n", max_path(init_node)); // should be 23
   free_node(init_node);

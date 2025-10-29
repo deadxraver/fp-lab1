@@ -28,7 +28,7 @@ int count_divs(int n) {
 }
 
 int number_with_divs(int number_of_divs) {
-  if (number_with_divs < 0)
+  if (number_of_divs < 0)
     return -1;
   int acc = 0;
   for (int i = 0; count_divs(acc) < number_of_divs; acc += i, ++i);
