@@ -39,11 +39,12 @@ build: build-c build-hs
 
 build-hs: $(HSSRC1)
 	$(HSC) $(HSSRC1) -o $(BUILD)/$(HSEXEC1)
+	cd $(BUILD) && $(CC) -S $(CLINT_FLAGS) ../$(SRC)/**/*.c
 
 build-c: $(CSRC1) $(CSRC2)
 	-mkdir $(BUILD)
-	$(CC) $(CLINT_FLAGS) -o $(BUILD)/$(CEXEC1) $(CSRC1)
-	$(CC) $(CLINT_FLAGS) -o $(BUILD)/$(CEXEC2) $(CSRC2)
+	$(CC) -o $(BUILD)/$(CEXEC1) $(CSRC1)
+	$(CC) -o $(BUILD)/$(CEXEC2) $(CSRC2)
 
 test: test-c test-hs
 	@echo 'Tests OK'
