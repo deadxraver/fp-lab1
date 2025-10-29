@@ -29,8 +29,9 @@ format: $(HSSRC1)
 format-check:
 	ormolu --mode check $(HSSRC1)
 
-lint: $(SRC)/
+lint: $(SRC)
 	hlint $(HSSRC1)
+	clang-tidy --warnings-as-errors=* $^/**/*.c $^/**/*.h
 
 build: build-c build-hs
 	@echo 'build finished, put binaries to $(BUILD)/'
