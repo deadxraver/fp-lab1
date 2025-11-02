@@ -30,7 +30,6 @@ highlyDivisibleTriangleNumbers divs =
   filter (\n -> countDivs n [1 ..] >= divs) triangleNumbers
 
 main :: IO ()
--- test output
 main = do
   args <- getArgs
   print $ head $ highlyDivisibleTriangleNumbers $ parseArgs args
