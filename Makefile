@@ -1,4 +1,4 @@
-.PHONY: all clean test test-c test-hs format-check lint
+.PHONY: all clean test test-c test-hs format format-check lint
 
 PROBLEM1=12
 PROBLEM2=18
@@ -37,14 +37,14 @@ lint: $(SRC)
 build: build-c build-hs
 	@echo 'build finished, put binaries to $(BUILD)/'
 
-build-hs: $(HSSRC1)
+build-hs: $(HSSRC1) $(HSSRC2)
 	$(HSC) $(HSSRC1) -o $(BUILD)/$(HSEXEC1)
-	cd $(BUILD) && $(CC) -S $(CLINT_FLAGS) ../$(SRC)/**/*.c
 
 build-c: $(CSRC1) $(CSRC2)
 	-mkdir $(BUILD)
 	$(CC) -o $(BUILD)/$(CEXEC1) $(CSRC1)
 	$(CC) -o $(BUILD)/$(CEXEC2) $(CSRC2)
+	cd $(BUILD) && $(CC) -S $(CLINT_FLAGS) ../$(SRC)/**/*.c
 
 test: test-c test-hs
 	@echo 'Tests OK'
