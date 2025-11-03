@@ -59,7 +59,7 @@ worstMax x y = worstMax' x y [0 ..]
 
 -- infinite list
 maxPathSumIInf :: Node -> Integer
-maxPathSumIInf = maxPathSumIFold
+maxPathSumIInf = maxPathSumIModule
 
 -- tailrec
 maxPathSumITailrec :: Node -> Integer
@@ -81,7 +81,7 @@ maxPathSumIMap node = maximum (map sum (generatePaths node))
 maxPathSumI :: String -> (Node -> Integer)
 maxPathSumI "rec" = maxPathSumIRec
 maxPathSumI "tail" = maxPathSumITailrec
-maxPathSumI "fold" = maxPathSumIFold
+maxPathSumI "module" = maxPathSumIModule
 maxPathSumI "map" = maxPathSumIMap
 maxPathSumI "inf" = maxPathSumIInf
 maxPathSumI arg = error $ "Unknown arg: " ++ arg
