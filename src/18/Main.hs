@@ -1,3 +1,5 @@
+import System.Environment (getArgs)
+
 data Node = MakeNode Integer Ptrs deriving (Show)
 
 data Ptrs = PointsTo Node Node | NoPtr deriving (Show)
@@ -26,9 +28,14 @@ defaultStruct = MakeNode 3 $ PointsTo node21 node22
     node21 = MakeNode 7 $ PointsTo node31 sharedNode32
     node22 = MakeNode 4 $ PointsTo sharedNode32 node33
 
-maxPathSumI :: Node -> Integer
-maxPathSumI (MakeNode x NoPtr) = x
-maxPathSumI node = getNumber node + max (maxPathSumI (getLeft node)) (maxPathSumI (getRight node))
+maxPathSumIMono :: Node -> Integer
+maxPathSumIMono (MakeNode x NoPtr) = x
+maxPathSumIMono node = getNumber node + max (maxPathSumIMono (getLeft node)) (maxPathSumIMono (getRight node))
 
 main :: IO ()
-main = do print $ maxPathSumI defaultStruct
+main = do
+  args <- getArgs
+  let mode = if null args then "m" else head args
+   in if mode == "m"
+        then print $ maxPathSumIMono defaultStruct
+        else print "Unknown arg"
