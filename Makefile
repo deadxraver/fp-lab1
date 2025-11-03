@@ -25,20 +25,24 @@ CLINT_FLAGS=-Wall -Wextra -Wpedantic -Werror -fsanitize=address,undefined
 all: format-check lint build test
 	@echo 'build & test successfully finished'
 
-format: $(HSSRC1)
+format:
 	ormolu --mode inplace $(HSSRC1)
+	ormolu --mode inplace $(HSSRC2)
 
 format-check:
 	ormolu --mode check $(HSSRC1)
+	ormolu --mode check $(HSSRC2)
 
-lint: $(SRC)
+lint:
 	hlint $(HSSRC1)
+	hlint $(HSSRC2)
 
 build: build-c build-hs
 	@echo 'build finished, put binaries to $(BUILD)/'
 
 build-hs: $(HSSRC1) $(HSSRC2)
 	$(HSC) $(HSSRC1) -o $(BUILD)/$(HSEXEC1)
+	$(HSC) $(HSSRC2) -o $(BUILD)/$(HSEXEC2)
 
 build-c: $(CSRC1) $(CSRC2)
 	-mkdir $(BUILD)
