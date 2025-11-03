@@ -55,11 +55,20 @@ test: test-c test-hs
 
 test-hs:	build-hs
 	@echo "Running hs tests for problem $(PROBLEM1)..."
-	[ $$($(BUILD)/$(HSEXEC1)) = 76576500 ];
+	@echo 'Recursion:'
+	[ $$($(BUILD)/$(HSEXEC1) rec) = 76576500 ];
 	@echo OK
-	[ $$($(BUILD)/$(HSEXEC1) 0) = 0 ];
+	@echo 'Tail recursion:'
+	[ $$($(BUILD)/$(HSEXEC1) tail) = 76576500 ];
 	@echo OK
-	[ $$($(BUILD)/$(HSEXEC1) 6) = 28 ];
+	@echo 'Module, fold, etc.:'
+	[ $$($(BUILD)/$(HSEXEC1) module) = 76576500 ];
+	@echo OK
+	@echo 'map:'
+	[ $$($(BUILD)/$(HSEXEC1) map) = 76576500 ];
+	@echo OK
+	@echo 'Infinite lists:'
+	[ $$($(BUILD)/$(HSEXEC1) inf) = 76576500 ];
 	@echo OK
 	@echo "...and for problem $(PROBLEM2)..."
 	@echo 'Recursion:'

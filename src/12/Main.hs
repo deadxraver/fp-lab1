@@ -2,10 +2,6 @@ import System.Environment (getArgs)
 
 defaultArg = 500
 
-parseArgs :: [String] -> Int
-parseArgs [] = defaultArg
-parseArgs clArgs = read (head clArgs) :: Int
-
 triangleNumber :: (Integral a) => a -> a
 triangleNumber n = n * (n + 1) `div` 2
 
@@ -42,7 +38,31 @@ highlyDivisibleTriangleNumbers :: (Integral a) => a -> [a]
 highlyDivisibleTriangleNumbers divs =
   filter (\n -> countDivs n >= divs) triangleNumbers
 
+highlyDivisibleTriangleNumberRec :: (Integral a) => a -> a
+highlyDivisibleTriangleNumberRec divs = head $ filter (\x -> countDivsRec x >= divs) triangleNumbers
+
+highlyDivisibleTriangleNumberTail :: (Integral a) => a -> a
+highlyDivisibleTriangleNumberTail divs = head $ filter (\x -> countDivs x >= divs) triangleNumbers
+
+highlyDivisibleTriangleNumberModule :: (Integral a) => a -> a
+highlyDivisibleTriangleNumberModule divs = head $ filter (\x -> countDivs x >= divs) triangleNumbers
+
+highlyDivisibleTriangleNumberMap :: (Integral a) => a -> a
+highlyDivisibleTriangleNumberMap = highlyDivisibleTriangleNumberTail
+
+highlyDivisibleTriangleNumberInf :: (Integral a) => a -> a
+highlyDivisibleTriangleNumberInf = highlyDivisibleTriangleNumberTail
+
+highlyDivisibleTriangleNumber :: (Integral a) => String -> a -> a
+highlyDivisibleTriangleNumber "rec" = highlyDivisibleTriangleNumberRec
+highlyDivisibleTriangleNumber "tail" = highlyDivisibleTriangleNumberTail
+highlyDivisibleTriangleNumber "module" = highlyDivisibleTriangleNumberModule
+highlyDivisibleTriangleNumber "map" = highlyDivisibleTriangleNumberMap
+highlyDivisibleTriangleNumber "inf" = highlyDivisibleTriangleNumberInf
+highlyDivisibleTriangleNumber arg = error $ "Unknown arg: " ++ arg
+
 main :: IO ()
 main = do
   args <- getArgs
-  print $ head $ highlyDivisibleTriangleNumbers $ parseArgs args
+  let arg = if null args then "rec" else head args
+   in print $ highlyDivisibleTriangleNumber arg defaultArg
