@@ -48,9 +48,20 @@ sumPath arr = sumPath' arr 0
       where
         (x : xs) = arr'
 
--- map
+-- infinite list
+worstMax :: Integer -> Integer -> Integer
+worstMax x y = worstMax' x y [0 ..]
+  where
+    worstMax' x' y' arr
+      | x' == elem = y'
+      | y' == elem = x'
+      | otherwise = worstMax' x' y' xs
+      where
+        (elem : xs) = arr
+
+-- map + fold
 maxPathSumITailrec :: Node -> Integer
-maxPathSumITailrec node = maximum (map sumPath (generatePaths node))
+maxPathSumITailrec node = foldr1 worstMax (map sumPath (generatePaths node))
 
 maxPathSumIMono :: Node -> Integer
 maxPathSumIMono (MakeNode x NoPtr) = x
