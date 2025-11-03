@@ -38,4 +38,4 @@ main = do
   let mode = if null args then "m" else head args
    in if mode == "m"
         then print $ maxPathSumIMono defaultStruct
-        else print "Unknown arg"
+        else error "Unknown arg"
