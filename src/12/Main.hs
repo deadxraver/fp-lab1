@@ -25,6 +25,18 @@ countDivs n = countDivs' n [1 ..] 0
       where
         (x' : xs') = arr'
 
+countDivsRec :: (Integral a) => a -> a
+-- rec
+countDivsRec n = countDivsRec' n [1 ..]
+  where
+    countDivsRec' n' arr
+      | x * x > n' = 0
+      | x * x == n' = 1
+      | n' `mod` x == 0 = 2 + countDivsRec' n' xs
+      | otherwise = countDivsRec' n' xs
+      where
+        (x : xs) = arr
+
 -- filter + inf list again
 highlyDivisibleTriangleNumbers :: (Integral a) => a -> [a]
 highlyDivisibleTriangleNumbers divs =
