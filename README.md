@@ -110,3 +110,16 @@ route. However, Problem 67, is the same challenge
 with a triangle containing one-hundred rows; it
 cannot be solved by brute force, and requires a
 clever method! ;o)
+
+## Implementation
+
+[Problem 12](src/12/Main.hs)
+
+[Problem 18](src/18/Main.hs)
+
+## Conclusion
+
+Во время выполнения данной лабораторной работы я познакомился с синтаксисом хаскеля,
+его особенностями, научился применять рекурсию и делать из нее хвостовую.
+Все понравилось, руки набились, ленивое исполнение реально прикольная вещь,
+даже свой тип написал, хотя лаба это не предполагала, но вариант вынудил.
