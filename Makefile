@@ -61,6 +61,9 @@ test-hs:	build-hs
 	@echo OK
 	[ $$($(BUILD)/$(HSEXEC1) 6) = 28 ];
 	@echo OK
+	@echo "...and for problem $(PROBLEM2)..."
+	[ $$($(BUILD)/$(HSEXEC2)) = 23 ]
+	@echo OK
 
 test-c:	build-c
 	@echo "Running c tests for problem $(PROBLEM1)..."
