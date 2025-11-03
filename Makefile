@@ -69,7 +69,7 @@ test-hs:	build-hs
 	[ $$($(BUILD)/$(HSEXEC2) tail) = 23 ]
 	@echo OK
 	@echo 'Module, fold, etc.:'
-	[ $$($(BUILD)/$(HSEXEC2) fold) = 23 ]
+	[ $$($(BUILD)/$(HSEXEC2) module) = 23 ]
 	@echo OK
 	@echo 'map:'
 	[ $$($(BUILD)/$(HSEXEC2) map) = 23 ]

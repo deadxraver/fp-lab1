@@ -70,9 +70,9 @@ maxPathSumIRec :: Node -> Integer
 maxPathSumIRec (MakeNode x NoPtr) = x
 maxPathSumIRec node = getNumber node + max (maxPathSumIRec (getLeft node)) (maxPathSumIRec (getRight node))
 
--- fold
-maxPathSumIFold :: Node -> Integer
-maxPathSumIFold node = foldr1 worstMax (map sumPath (generatePaths node))
+-- module
+maxPathSumIModule :: Node -> Integer
+maxPathSumIModule node = foldr1 worstMax (map sumPath (generatePaths node))
 
 -- map
 maxPathSumIMap :: Node -> Integer
