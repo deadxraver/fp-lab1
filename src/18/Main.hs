@@ -39,7 +39,6 @@ generatePaths node = generatePaths' node []
       | isLast node' = [getNumber node' : arr]
       | otherwise = generatePaths' (getLeft node') (getNumber node' : arr) ++ generatePaths' (getRight node') (getNumber node' : arr)
 
--- tailrec
 sumPath :: [Integer] -> Integer
 sumPath arr = sumPath' arr 0
   where
@@ -48,7 +47,6 @@ sumPath arr = sumPath' arr 0
       where
         (x : xs) = arr'
 
--- infinite list
 worstMax :: Integer -> Integer -> Integer
 worstMax x y = worstMax' x y [0 ..]
   where
@@ -59,21 +57,37 @@ worstMax x y = worstMax' x y [0 ..]
       where
         (elem : xs) = arr
 
--- map + fold
-maxPathSumITailrec :: Node -> Integer
-maxPathSumITailrec node = foldr1 worstMax (map sumPath (generatePaths node))
+-- infinite list
+maxPathSumIInf :: Node -> Integer
+maxPathSumIInf = maxPathSumIFold
 
-maxPathSumIMono :: Node -> Integer
-maxPathSumIMono (MakeNode x NoPtr) = x
-maxPathSumIMono node = getNumber node + max (maxPathSumIMono (getLeft node)) (maxPathSumIMono (getRight node))
+-- tailrec
+maxPathSumITailrec :: Node -> Integer
+maxPathSumITailrec node = maximum (map sumPath (generatePaths node))
+
+-- rec
+maxPathSumIRec :: Node -> Integer
+maxPathSumIRec (MakeNode x NoPtr) = x
+maxPathSumIRec node = getNumber node + max (maxPathSumIRec (getLeft node)) (maxPathSumIRec (getRight node))
+
+-- fold
+maxPathSumIFold :: Node -> Integer
+maxPathSumIFold node = foldr1 worstMax (map sumPath (generatePaths node))
+
+-- map
+maxPathSumIMap :: Node -> Integer
+maxPathSumIMap node = maximum (map sum (generatePaths node))
+
+maxPathSumI :: String -> (Node -> Integer)
+maxPathSumI "rec" = maxPathSumIRec
+maxPathSumI "tail" = maxPathSumITailrec
+maxPathSumI "fold" = maxPathSumIFold
+maxPathSumI "map" = maxPathSumIMap
+maxPathSumI "inf" = maxPathSumIInf
+maxPathSumI arg = error $ "Unknown arg: " ++ arg
 
 main :: IO ()
 main = do
   args <- getArgs
-  let mode = if null args then "mono" else head args
-   in if mode == "mono"
-        then print $ maxPathSumIMono defaultStruct
-        else
-          if mode == "tail"
-            then print $ maxPathSumITailrec defaultStruct
-            else error $ "Unknown arg: " ++ mode
+  let mode = if null args then "rec" else head args
+   in print $ maxPathSumI mode defaultStruct

@@ -62,9 +62,20 @@ test-hs:	build-hs
 	[ $$($(BUILD)/$(HSEXEC1) 6) = 28 ];
 	@echo OK
 	@echo "...and for problem $(PROBLEM2)..."
-	[ $$($(BUILD)/$(HSEXEC2)) = 23 ]
+	@echo 'Recursion:'
+	[ $$($(BUILD)/$(HSEXEC2) rec) = 23 ]
 	@echo OK
+	@echo 'Tail recursion:'
 	[ $$($(BUILD)/$(HSEXEC2) tail) = 23 ]
+	@echo OK
+	@echo 'Module, fold, etc.:'
+	[ $$($(BUILD)/$(HSEXEC2) fold) = 23 ]
+	@echo OK
+	@echo 'map:'
+	[ $$($(BUILD)/$(HSEXEC2) map) = 23 ]
+	@echo OK
+	@echo 'Infinite lists:'
+	[ $$($(BUILD)/$(HSEXEC2) inf) = 23 ]
 	@echo OK
 
 test-c:	build-c
