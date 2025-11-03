@@ -13,21 +13,22 @@ triangleNumber n = n * (n + 1) `div` 2
 triangleNumbers :: (Integral a) => [a]
 triangleNumbers = map triangleNumber [0 ..]
 
-countDivs :: (Integral a) => a -> [a] -> a
--- rec
-countDivs n arr
-  | null arr = 0
-  | x * x > n = 0
-  | x * x == n = 1
-  | n `mod` x == 0 = 2 + countDivs n xs
-  | otherwise = countDivs n xs
+countDivs :: (Integral a) => a -> a
+-- tailrec
+countDivs n = countDivs' n [1 ..] 0
   where
-    (x : xs) = arr
+    countDivs' n' arr' acc
+      | x' * x' > n' = acc
+      | x' * x' == n' = acc + 1
+      | n' `mod` x' == 0 = countDivs' n' xs' $ acc + 2
+      | otherwise = countDivs' n' xs' acc
+      where
+        (x' : xs') = arr'
 
 -- filter + inf list again
 highlyDivisibleTriangleNumbers :: (Integral a) => a -> [a]
 highlyDivisibleTriangleNumbers divs =
-  filter (\n -> countDivs n [1 ..] >= divs) triangleNumbers
+  filter (\n -> countDivs n >= divs) triangleNumbers
 
 main :: IO ()
 main = do
