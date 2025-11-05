@@ -1,5 +1,6 @@
 import System.Environment (getArgs)
 
+defaultArg :: (Integral a) => a
 defaultArg = 500
 
 triangleNumber :: (Integral a) => a -> a
@@ -45,7 +46,7 @@ highlyDivisibleTriangleNumberTail :: (Integral a) => a -> a
 highlyDivisibleTriangleNumberTail divs = head $ filter (\x -> countDivs x >= divs) triangleNumbers
 
 highlyDivisibleTriangleNumberModule :: (Integral a) => a -> a
-highlyDivisibleTriangleNumberModule divs = head $ filter (\x -> countDivs x >= divs) triangleNumbers
+highlyDivisibleTriangleNumberModule divs = head (highlyDivisibleTriangleNumbers defaultArg)
 
 highlyDivisibleTriangleNumberMap :: (Integral a) => a -> a
 highlyDivisibleTriangleNumberMap = highlyDivisibleTriangleNumberTail
